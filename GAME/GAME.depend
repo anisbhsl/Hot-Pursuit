@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1487136264 source:d:\computer projects\3rd sem project\game\game\game.cpp
+	<iostream>
+
+1487137253 source:d:\computer projects\3rd sem project\game\game\main.cpp
+	<iostream>
+	"SFML/Graphics.hpp"
+
