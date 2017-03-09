@@ -1,0 +1,135 @@
+# depslib dependency file v1.0
+1488114539 source:e:\game\main.cpp
+	"menu.hpp"
+
+1488702150 e:\game\game.hpp
+	"header.hpp"
+	"player.hpp"
+	"enemy.hpp"
+	<cstring>
+	<sstream>
+
+1488702810 e:\game\player.hpp
+	"header.hpp"
+
+1488209286 e:\game\header.hpp
+	<iostream>
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+
+1487782752 e:\game\entity.hpp
+	"header.hpp"
+
+1488261086 e:\game\enemy.hpp
+	"header.hpp"
+	<cstdlib>
+
+1488703390 e:\game\menu.hpp
+	"header.hpp"
+	<cstring>
+	<vector>
+	<windows.h>
+	"game.hpp"
+
+1488703166 e:\game\load.hpp
+	"SFML/Graphics.hpp"
+	"SFML/Audio.hpp"
+	"SFML/Window.hpp"
+	<cstring>
+	<iostream>
+	<vector>
+	<windows.h>
+
+1488114540 source:j:\game\main.cpp
+	"menu.hpp"
+
+1488729530 j:\game\menu.hpp
+	"header.hpp"
+	<cstring>
+	<vector>
+	<windows.h>
+	"game.hpp"
+	"load.hpp"
+
+1489071792 j:\game\header.hpp
+	<iostream>
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+	<sstream>
+	<string>
+
+1489072302 j:\game\game.hpp
+	"header.hpp"
+	"player.hpp"
+	"enemy.hpp"
+	<cstring>
+	<sstream>
+
+1489071476 j:\game\player.hpp
+	"header.hpp"
+
+1489071790 j:\game\enemy.hpp
+	"header.hpp"
+	<cstdlib>
+
+1488729550 j:\game\load.hpp
+	"SFML/Graphics.hpp"
+	"SFML/Audio.hpp"
+	"SFML/Window.hpp"
+	<cstring>
+	<iostream>
+	<vector>
+	<windows.h>
+
+1489072126 source:j:\game\player.cpp
+	"player.hpp"
+
+1489071890 source:j:\game\game.cpp
+
+1488114540 source:d:\computer projects\game\main.cpp
+	"menu.hpp"
+
+1488729530 d:\computer projects\game\menu.hpp
+	"header.hpp"
+	<cstring>
+	<vector>
+	<windows.h>
+	"game.hpp"
+	"load.hpp"
+
+1489071792 d:\computer projects\game\header.hpp
+	<iostream>
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+	<sstream>
+	<string>
+
+1489072302 d:\computer projects\game\game.hpp
+	"header.hpp"
+	"player.hpp"
+	"enemy.hpp"
+	<cstring>
+	<sstream>
+
+1489071476 d:\computer projects\game\player.hpp
+	"header.hpp"
+
+1489071790 d:\computer projects\game\enemy.hpp
+	"header.hpp"
+	<cstdlib>
+
+1488729550 d:\computer projects\game\load.hpp
+	"SFML/Graphics.hpp"
+	"SFML/Audio.hpp"
+	"SFML/Window.hpp"
+	<cstring>
+	<iostream>
+	<vector>
+	<windows.h>
+
+1489072126 source:d:\computer projects\game\player.cpp
+	"player.hpp"
+
