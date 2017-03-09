@@ -52,7 +52,7 @@ void Player::updatePlayerScore(int elapsedTime)
     if( elapsedTime != temp )
     {
             Score+=5;
-            playerScore = toString(Score);
+            playerScore = toString(Score); //toString(); // ANSI/ISO 2015 standard 
             cout<< playerScore;
     }
     temp = elapsedTime;
