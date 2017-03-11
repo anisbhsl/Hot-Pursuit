@@ -40,6 +40,7 @@
 		<Unit filename="game.cpp" />
 		<Unit filename="game.hpp" />
 		<Unit filename="header.hpp" />
+		<Unit filename="load.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.hpp" />
 		<Unit filename="player.cpp" />

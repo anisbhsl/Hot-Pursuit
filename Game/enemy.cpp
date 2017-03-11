@@ -7,7 +7,7 @@ Enemy::Enemy():loadEnemy(false)
          cout<<"Error in loading enemy spirit"<<endl;
      }
      eSprite.setTexture(mEnemy);
-     movementSpeed = 0.9;
+     movementSpeed = 1;
 
 }
 
@@ -26,7 +26,7 @@ void Enemy::updateEnemy()
     {
         enemyLoadY+=movementSpeed*(0.7*1.56); //movementSpeed times the speed of background
         eSprite.setPosition(enemyLoadX,enemyLoadY);
-        if(enemyLoadY==650) //when enemy sprite reaches 650 y position then loading of sprite is terminated
+        if(enemyLoadY==700) //when enemy sprite reaches 650 y position then loading of sprite is terminated
             loadEnemy=false;
     }
 }

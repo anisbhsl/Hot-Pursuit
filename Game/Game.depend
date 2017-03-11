@@ -133,10 +133,10 @@
 1489072126 source:d:\computer projects\game\player.cpp
 	"player.hpp"
 
-1488114540 source:d:\computer lab\game\main.cpp
+1489226573 source:d:\computer lab\game\main.cpp
 	"menu.hpp"
 
-1489211564 d:\computer lab\game\menu.hpp
+1489238219 d:\computer lab\game\menu.hpp
 	"header.hpp"
 	<conio.h>
 	<cstring>
@@ -145,20 +145,22 @@
 	"game.hpp"
 	"load.hpp"
 
-1489205661 d:\computer lab\game\header.hpp
+1489235166 d:\computer lab\game\header.hpp
 	<iostream>
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/System.hpp>
 	<sstream>
-	<string>
+	<cstring>
+	<vector>
+	<windows.h>
+	<conio.h>
+	<fstream>
 
-1489205874 d:\computer lab\game\game.hpp
+1489220418 d:\computer lab\game\game.hpp
 	"header.hpp"
 	"player.hpp"
 	"enemy.hpp"
-	<cstring>
-	<sstream>
 
 1489205661 d:\computer lab\game\player.hpp
 	"entity.hpp"
@@ -167,27 +169,21 @@
 	"entity.hpp"
 	<cstdlib>
 
-1488729550 d:\computer lab\game\load.hpp
-	"SFML/Graphics.hpp"
-	"SFML/Audio.hpp"
-	"SFML/Window.hpp"
-	<cstring>
-	<iostream>
-	<vector>
-	<windows.h>
+1489218082 d:\computer lab\game\load.hpp
+	"header.hpp"
 
 1489205227 source:d:\computer lab\game\player.cpp
 	"player.hpp"
 
-1489205276 d:\computer lab\game\entity.hpp
+1489226614 d:\computer lab\game\entity.hpp
 	"header.hpp"
 
-1489210924 source:d:\computer lab\game\enemy.cpp
+1489225582 source:d:\computer lab\game\enemy.cpp
 	"enemy.hpp"
 
 1489205429 source:d:\computer lab\game\menu.cpp
 	"menu.hpp"
 
-1489210853 source:d:\computer lab\game\game.cpp
+1489237749 source:d:\computer lab\game\game.cpp
 	"game.hpp"
 

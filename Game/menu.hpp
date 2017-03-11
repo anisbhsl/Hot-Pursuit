@@ -10,6 +10,14 @@
 #include "game.hpp"
 #include "load.hpp"
 
+template <typename T>
+std::string toString(const T& value)
+{
+    std::stringstream stream;
+    stream << value;
+    return stream.str();
+}
+
 using namespace std;
 
 class Menu
@@ -24,6 +32,7 @@ private:
     void load();
     void exitMenu();
     void instructions();
+    void highscores();
 
 private:
     string Option[4] = { "PLAY","SCORES","INSTRUCTIONS","EXIT"};
@@ -133,7 +142,7 @@ void Menu::processEvents()
                     game.run(); //game window opens
                     break;
                 case 1 :
-                    cout<<"score"<<endl;
+                    highscores();
                     break;
                 case 2 :
                     instructions();
@@ -192,6 +201,51 @@ void Menu::instructions()
     mWindow.display();
     Sleep(4000);
     Menu();
+}
+
+void Menu::highscores()
+{
+    fstream scorefile;
+    scorefile.open("score.txt",ios::in);
+    if(!scorefile)
+        cout<<"error4"<<endl;
+    //scorefile.seekp(0);
+    static int i=0;
+    string position[5];
+    string scores[5];
+    for(i=0; i<5; i++)
+    {
+        scorefile>>scores[i];
+        position[i]=toString(i+1);
+    }
+    scorefile.close();
+
+
+    mWindow.clear();
+    mWindow.draw(background);
+
+    string temp_display;
+    sf::Text score_display;
+    score_display.setFont(oFont);
+    score_display.setCharacterSize(40);
+
+    sf::Text disp_highscore;
+    disp_highscore.setFont(oFont);
+    disp_highscore.setCharacterSize(77);
+    disp_highscore.setString("HIGHSCORE");
+    disp_highscore.setPosition(sf::Vector2f(mWindow.getSize().x/3,50));
+    mWindow.draw(disp_highscore);
+
+    for(i=0; i<5; i++)
+    {
+        temp_display = position[i]+".    "+scores[i];
+        score_display.setString(temp_display);
+        score_display.setPosition(sf::Vector2f(100,200+(i*50)));
+        mWindow.draw(score_display);
+        cout<<temp_display;
+    }
+    mWindow.display();
+    Sleep(5000);
 }
 #endif // MENU
 

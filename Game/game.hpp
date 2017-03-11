@@ -4,8 +4,7 @@
 #include "header.hpp"
 #include "player.hpp"
 #include "enemy.hpp"
-#include <cstring>
-#include <sstream>
+
 
 class Game
 {
@@ -13,17 +12,20 @@ public:
     Game(); //game constructor
     void run();
     ~Game(){}  //game destructor
+    void collision();
+    void saveScore();
 
 private:
     void processEvents();
     void update(float elapsedTime,int time);
     void render();
 
+private:
     sf::RenderWindow mWindow;
     sf::Texture mRoad;
     sf::Sprite  mRoadSprite1,mRoadSprite2;
 
-    sf::Font scoreFont;
+    sf::Font scoreFont,oFont;
     sf::Text scoreText,updateScoreText;
 
     Player player; //player object from Player class

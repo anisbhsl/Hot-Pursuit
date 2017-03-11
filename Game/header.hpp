@@ -8,7 +8,11 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
 #include <sstream>
-#include <string>
+#include <cstring>
+#include <vector>
+#include <windows.h>
+#include <conio.h>
+#include <fstream>
 
 
 using namespace std;

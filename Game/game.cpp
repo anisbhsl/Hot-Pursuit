@@ -1,37 +1,59 @@
 #include "game.hpp"
 
+int StringToInteger(string NumberAsString)
+{
+	int NumberAsInteger;
+	stringstream ss;
+	ss << NumberAsString;
+	ss >> NumberAsInteger;
+	return NumberAsInteger;
+}
+
+template <typename T>
+string ToString(T val)
+{
+    stringstream stream;
+    stream << val;
+    return stream.str();
+}
+
 Game ::Game() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"), //size of game window is 900 x 642 pixels
-    mRoad(),mRoadSprite1(),mRoadSprite2(),player()
+    mRoad(),mRoadSprite1(),mRoadSprite2(),player(),oFont()
 {
     mWindow.setPosition(sf::Vector2i(177,0)); //sets the position of gaming window in screen
-    bgSpeed=0.7;
+    bgSpeed=0.9;
     if(!mRoad.loadFromFile("resource/image/roadb.png")) //imports road texture
     {
         cout<<"No File found for road"<<endl;
     }
     mRoad.setSmooth(true);
 
-    mRoadSprite1.setTexture(mRoad); //instantiates image as sprite
-    mRoadSprite1.setPosition(0,0);  //sets the position of gaming environment in window
-    bg1Y=mRoadSprite1.getPosition().y; //gets the y position of road sprite 1
+    mRoadSprite1.setTexture(mRoad);         //instantiates image as sprite
+    mRoadSprite1.setPosition(0,0);          //sets the position of gaming environment in window
+    bg1Y=mRoadSprite1.getPosition().y;      //gets the y position of road sprite 1
 
     mRoadSprite2.setTexture(mRoad);
-    mRoadSprite2.setPosition(0,-642); //sets the position of gaming environment in window
-    bg2Y=mRoadSprite1.getPosition().y; //gets the y position of road sprite 2
+    mRoadSprite2.setPosition(0,-642);       //sets the position of gaming environment in window
+    bg2Y=mRoadSprite1.getPosition().y;      //gets the y position of road sprite 2
 
+
+    if(!oFont.loadFromFile("resource/fonts/PatrioticNepal_rabinsxp.ttf"))
+        cout<<"Error Loading menu font"<<endl;
 
     ////////////////////////////////////Sound////////////////////////////////////////////////////////////
 
- /*   if(!buffer.loadFromFile("resource/sounds/policesiren.ogg"))
-    {
-        cout<<"No File found for police siren"<<endl;
-    }
-    mSiren.setBuffer(buffer);
-    mSiren.setLoop(true); //loops the sound
-*/
+    /*   if(!buffer.loadFromFile("resource/sounds/policesiren.ogg"))
+       {
+           cout<<"No File found for police siren"<<endl;
+       }
+       mSiren.setBuffer(buffer);
+       mSiren.setLoop(true); //loops the sound
+    */
 
     /////////////////////////////////Score ///////////////////////////////////////////////////////////////
-    if(!scoreFont.loadFromFile("resource/fonts/arial.ttf"))
+
+
+    if(!scoreFont.loadFromFile("resource/fonts/leafy.otf"))
         cout<<"Error Loading score font"<<endl;
     scoreText.setFont(scoreFont);
     scoreText.setString("Score:");
@@ -49,19 +71,17 @@ Game ::Game() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"), //size of game w
 void Game::run()
 {
     //mSiren.play();
-    sf::Clock clock; //starts the clock
+    sf::Clock clock;        //starts clock
 
     while (mWindow.isOpen())
-
     {
-
         processEvents();
 
         sf::Time playTime=clock.getElapsedTime();
         int ptime=(playTime.asMilliseconds()/1000);
 
-        float x=rand()%750+20; //gives range of values from 750 to 20
-        if((ptime%2==0)) //after each 2 seconds the enemy is generated randomly
+        float x=rand()%750+20;  //gives range of values from 750 to 20
+        if((ptime%2==0))        //after each 2 seconds the enemy is generated randomly
         {
             enemy.loadEnemyRandom(x,-250);
             enemy.loadEnemy=true;
@@ -93,33 +113,27 @@ void Game::processEvents()  //handles user events
 
 void Game::update(float elapsedTime,int time)   //updates the entities in the game
 {
-    diff=bg1Y-mWindow.getSize().y; //calculates the difference between y-position of backround and y-size of window
+    diff=bg1Y-mWindow.getSize().y; //calculates the difference between y-position of background and y-size of window
 
     if(bg1Y>=640)
-    {
         bg1Y=-638;
-    }
     else
-    {
         bg1Y+=bgSpeed*elapsedTime;
-    }
     if(bg2Y>=mWindow.getSize().y)
-    {
         bg2Y=-640;
-    }
     else if(bg2Y<bg1Y)
-    {
         bg2Y=diff+5;
-    }
     else
-    {
-        bg2Y+=bgSpeed*elapsedTime; //y position is changed
-    }
-    mRoadSprite1.setPosition(0,bg1Y); //sets the position of road sprite
-    mRoadSprite2.setPosition(0,bg2Y); //sets the position of road sprite
+        bg2Y+=bgSpeed*elapsedTime;      //y position is changed
+
+
+    mRoadSprite1.setPosition(0,bg1Y);   //sets the position of road sprite
+    mRoadSprite2.setPosition(0,bg2Y);   //sets the position of road sprite
+
     //////////////collison/////////////////
     if (player.eSprite.getGlobalBounds().intersects(enemy.eSprite.getGlobalBounds())) //collison detection
     {
+        collision();
         mWindow.close(); //game window closes when collison occurs
     }
     else
@@ -145,5 +159,91 @@ void Game::render()  //renders the game
     if(enemy.loadEnemy==true)
         mWindow.draw(enemy.eSprite); //draws the enemy sprite
     mWindow.display();
+}
+
+void Game::collision()
+{
+    sf::Text gameOver;
+    gameOver.setFont(oFont);
+    gameOver.setCharacterSize(127);
+    string s = "Game Over";
+    string sub;
+    //gameOver.setString(s);
+    sf::Vector2f v;
+    v.x = (mWindow.getSize().x)/8;
+    v.y = (mWindow.getSize().y)/3;
+    gameOver.setPosition(sf::Vector2f(v));
+
+    sf::RectangleShape rect;
+    rect.setFillColor(sf::Color(0,0,0,77));
+    rect.setSize(sf::Vector2f(mWindow.getSize()));
+
+    for(int i = 0 ; i != s.length()+1; i++)
+    {
+        sub.append(s,i,1);
+        gameOver.setString(sub);
+        mWindow.draw(rect);
+        mWindow.draw(gameOver);
+        mWindow.display();
+        Sleep(200);
+    }
+    sf::Text scoreDisplay;
+    scoreDisplay.setFont(scoreFont);
+    string score = "Your Score " + player.playerScore;
+    scoreDisplay.setCharacterSize(77);
+    scoreDisplay.setPosition(sf::Vector2f(mWindow.getSize().x/10,mWindow.getSize().y/1.5));
+    scoreDisplay.setString(score);
+    mWindow.draw(scoreDisplay);
+    mWindow.display();
+    Sleep(5000);
+    saveScore();
+}
+
+void Game::saveScore()
+{
+    fstream scorefile;
+    scorefile.open("score.txt",ios::in);
+    if(!scorefile)
+    {
+        cout<<"error1"<<endl;
+    }
+    static int i=0,length,position;
+    string scores[100];
+    while(!scorefile.eof())
+    {
+        scorefile>>scores[i];
+        length=i+1;
+        i++;
+    }
+    scorefile.close();
+
+    scores[length-1]=player.playerScore;
+
+    //convert scores to integer type to sort as integer
+    int intscore[length];
+    for(i=0; i<length; i++)
+    {
+        intscore[i] =StringToInteger(scores[i]);
+    }
+    //sort(array, array+n, std::greater<int>());
+    sort(intscore,intscore+length,greater<int>()); //Use the start and end like this
+    for(i=0; i<length; i++)
+    {
+        scores[i]=ToString(intscore[i]);
+    }
+
+    //write sorted scores to file
+    fstream fscorefile;
+    fscorefile.open("score.txt",ios::out);
+    if(!fscorefile)
+    {
+        cout<<"error3"<<endl;
+    }
+    for(int j=0; j<length; j++)
+    {
+        fscorefile<<scores[j]<<endl;
+    }
+    fscorefile.close();
+    //print updated scores
 }
 

@@ -1,17 +1,11 @@
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
-#include "SFML/Window.hpp"
-#include <cstring>
-#include <iostream>
-#include <vector>
-#include <windows.h>
+#include "header.hpp"
 
 class Load
 {
 public:
     Load();
-
     void run();
+
 private:
     sf::RenderWindow lWindow;
     sf::Font lFont;
@@ -47,7 +41,7 @@ void Load::run()
                 lWindow.close();
             break;
         }
-        lText.setColor(sf::Color(255,255,255,i*3));
+        lText.setColor(sf::Color(255,255,255,i));
         load.setPosition(i*27,477);
         Sleep(50);
         lWindow.draw(load);
