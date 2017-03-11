@@ -133,3 +133,57 @@
 1489072126 source:d:\computer projects\game\player.cpp
 	"player.hpp"
 
+1488114540 source:d:\computer lab\game\main.cpp
+	"menu.hpp"
+
+1489205874 d:\computer lab\game\menu.hpp
+	"header.hpp"
+	<cstring>
+	<vector>
+	<windows.h>
+	"game.hpp"
+	"load.hpp"
+
+1489205661 d:\computer lab\game\header.hpp
+	<iostream>
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+	<sstream>
+	<string>
+
+1489205874 d:\computer lab\game\game.hpp
+	"header.hpp"
+	"player.hpp"
+	"enemy.hpp"
+	<cstring>
+	<sstream>
+
+1489205661 d:\computer lab\game\player.hpp
+	"entity.hpp"
+
+1489205661 d:\computer lab\game\enemy.hpp
+	"entity.hpp"
+	<cstdlib>
+
+1488729550 d:\computer lab\game\load.hpp
+	"SFML/Graphics.hpp"
+	"SFML/Audio.hpp"
+	"SFML/Window.hpp"
+	<cstring>
+	<iostream>
+	<vector>
+	<windows.h>
+
+1489205227 source:d:\computer lab\game\player.cpp
+	"player.hpp"
+
+1489205276 d:\computer lab\game\entity.hpp
+	"header.hpp"
+
+1489205269 source:d:\computer lab\game\enemy.cpp
+	"enemy.hpp"
+
+1489205429 source:d:\computer lab\game\menu.cpp
+	"menu.hpp"
+

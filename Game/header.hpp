@@ -1,4 +1,6 @@
 ////////////////////////All header files are included here//////////////////////////////
+#ifndef HEADER
+#define HEADER
 
 #include<iostream>
 
@@ -10,4 +12,6 @@
 
 
 using namespace std;
+
+#endif // HEADER
 

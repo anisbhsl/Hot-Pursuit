@@ -14,9 +14,10 @@ Player::Player():mIsMovingLeft(false),mIsMovingRight(false),playerScore("0"),Sco
     {
         cout<<"No File found for player"<<endl;
     }
-    mPlayerSprite.setTexture(mPlayer); //instantiates image as sprite
-    mPlayerSprite.setPosition(positionX,positionY); //sets the position of sprite in the window
+    eSprite.setTexture(mPlayer); //instantiates image as sprite
+    eSprite.setPosition(positionX,positionY); //sets the position of sprite in the window
    //boundary conditions are (10,450) and (750,450)
+   movementSpeed = 1;
 }
 
 void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
@@ -34,15 +35,15 @@ void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 void Player::updatePlayer()
 {
     sf::Vector2f movement(0,0);
-    sf::Vector2f playerPosition=mPlayerSprite.getPosition(); //gets the current position of our player
+    sf::Vector2f playerPosition=eSprite.getPosition(); //gets the current position of our player
 
     if (mIsMovingLeft)
        if(playerPosition.x!=10) //checks whether left x position of our player is 10 or not
-            movement.x-=1;
+            movement.x-=movementSpeed;
     if (mIsMovingRight)
         if(playerPosition.x!=750) //checks whether right x position of our player is 750 or not
-            movement.x +=1;
-    mPlayerSprite.move(movement);
+            movement.x +=movementSpeed;
+    eSprite.move(movement);
 
 }
 
@@ -52,8 +53,7 @@ void Player::updatePlayerScore(int elapsedTime)
     if( elapsedTime != temp )
     {
             Score+=5;
-            playerScore = toString(Score); //toString(); // ANSI/ISO 2015 standard 
-            cout<< playerScore;
+            playerScore = toString(Score);
     }
     temp = elapsedTime;
 }

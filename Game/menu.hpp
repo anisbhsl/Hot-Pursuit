@@ -1,10 +1,12 @@
 //////////////////////////////MAIN MENU/////////////////////////////////////
+#ifndef MENU
+#define MENU
+
 #include "header.hpp"
 
 #include <cstring>
 #include <vector>
 #include <windows.h>
-
 #include "game.hpp"
 #include "load.hpp"
 
@@ -21,6 +23,7 @@ private:
     void render();
     void load();
     void exitMenu();
+    void instructions();
 
 private:
     string Option[4] = { "PLAY","SCORES","INSTRUCTIONS","EXIT"};
@@ -33,11 +36,17 @@ private:
     vector<sf::Text> mOption;
     int mOptionIndex;
     Game game;
-    Load l; // object declaration of Game class
+    Load l;
+
+    string instruction;
+    sf::Text mInstruction;
+    sf::RectangleShape background;
+     // object declaration of Game class
 };
 
+
 Menu ::Menu() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"),
-    mTexture(),mSprite(),mOptionIndex(0)
+    mTexture(),mSprite(),mOptionIndex(0),instruction(),mInstruction(),background()
 {
     mWindow.setFramerateLimit(60);
     mWindow.setPosition(sf::Vector2i(177,0));
@@ -58,6 +67,14 @@ Menu ::Menu() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"),
     if(!oFont.loadFromFile("resource/fonts/leafy.otf"))
         cout<<"Error Loading menu font"<<endl;
 
+/*
+    instruction = "Instructions \n Keys \n A - Drift Right \n D - Drift Left \n Drift you way through obstacles. \n Outrun the Cops and loose the chase. \n Do not let the cops get you . ";
+    mInstruction.setFont(oFont);
+    mInstruction.setString(instruction);
+    mInstruction.setCharacterSize(50);
+    background.setFillColor(sf::Color(0,0,0,177));
+    background.setSize(sf::Vector2f(mWindow.getSize()));
+*/
     for(int i = 0; i<4 ; i++)
     {
         sf::Text tempOption;
@@ -68,17 +85,8 @@ Menu ::Menu() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"),
         mOption.push_back(tempOption);
     }
     updateOptionText();
-//////////////////////////////////Loading Menu///////////////////////////////////
-/*
-    loadText.setFont(mFont);
-    loadText.setString("HOT PURSUIT");
-    loadText.setCharacterSize(117);
-    loadText.setColor(sf::Color(0,0,0));
-    loadText.setPosition(17,177);
-    loading.setFont(mFont);
-    loading.setString("III");
-    loading.setCharacterSize(57);
-*/
+
+
 }
 
 void Menu::run()
@@ -123,7 +131,6 @@ void Menu::processEvents()
                 case 0 :
                     mWindow.close();
                     l.run();
-
                      //Menu window is close after user selects play option
                     game.run(); //game window opens
                     break;
@@ -131,7 +138,10 @@ void Menu::processEvents()
                     cout<<"score"<<endl;
                     break;
                 case 2 :
-                    cout<<"Instructions"<<endl;
+                    //mWindow.clear();
+                    //mWindow.draw(background);
+                    //mWindow.draw(mInstruction);
+                    cin.get();
                     break;
                 case 3 :
                     exitMenu();
@@ -179,6 +189,7 @@ void Menu :: exitMenu(void)
     }
 }
 
+#endif // MENU
 
 
 

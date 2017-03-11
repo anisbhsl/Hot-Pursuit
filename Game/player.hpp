@@ -1,21 +1,22 @@
-#include "header.hpp"
+#ifndef PLAYER
+#define PLAYER
 
-class Player
+#include "entity.hpp"
+
+class Player: public Entity
 {
 public:
     Player(); //player constructor
-
     sf::Texture mPlayer;
-    sf::Sprite mPlayerSprite;
     ~Player() //player destructor
     {
-
     }
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
     void updatePlayer();
     void updatePlayerScore(int elapsedTime);
     string playerScore;
     int Score;
+
 private:
 
     float positionX=377.0; //x position of player
@@ -30,3 +31,4 @@ private:
 
 };
 
+#endif // PLAYER
