@@ -7,7 +7,7 @@ Enemy::Enemy():loadEnemy(false)
          cout<<"Error in loading enemy spirit"<<endl;
      }
      eSprite.setTexture(mEnemy);
-     movementSpeed = 1.5;
+     movementSpeed = 0.9;
 
 }
 

@@ -3,7 +3,7 @@
 #define MENU
 
 #include "header.hpp"
-
+#include <conio.h>
 #include <cstring>
 #include <vector>
 #include <windows.h>
@@ -40,8 +40,8 @@ private:
 
     string instruction;
     sf::Text mInstruction;
-    sf::RectangleShape background;
-     // object declaration of Game class
+    sf::Sprite background;
+    // object declaration of Game class
 };
 
 
@@ -67,14 +67,14 @@ Menu ::Menu() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"),
     if(!oFont.loadFromFile("resource/fonts/leafy.otf"))
         cout<<"Error Loading menu font"<<endl;
 
-/*
-    instruction = "Instructions \n Keys \n A - Drift Right \n D - Drift Left \n Drift you way through obstacles. \n Outrun the Cops and loose the chase. \n Do not let the cops get you . ";
+
+    instruction = "\t\t Instructions \n\n Keys \n A - Drift Right \n D - Drift Left \n Drift you way through obstacles. \n Outrun the Cops and loose the chase. \n Do not let the cops get you . ";
     mInstruction.setFont(oFont);
     mInstruction.setString(instruction);
     mInstruction.setCharacterSize(50);
-    background.setFillColor(sf::Color(0,0,0,177));
-    background.setSize(sf::Vector2f(mWindow.getSize()));
-*/
+    background.setTexture(mTexture);
+    background.setColor(sf::Color(255,255,255,150));
+
     for(int i = 0; i<4 ; i++)
     {
         sf::Text tempOption;
@@ -85,8 +85,6 @@ Menu ::Menu() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"),
         mOption.push_back(tempOption);
     }
     updateOptionText();
-
-
 }
 
 void Menu::run()
@@ -131,17 +129,14 @@ void Menu::processEvents()
                 case 0 :
                     mWindow.close();
                     l.run();
-                     //Menu window is close after user selects play option
+                    //Menu window is close after user selects play option
                     game.run(); //game window opens
                     break;
                 case 1 :
                     cout<<"score"<<endl;
                     break;
                 case 2 :
-                    //mWindow.clear();
-                    //mWindow.draw(background);
-                    //mWindow.draw(mInstruction);
-                    cin.get();
+                    instructions();
                     break;
                 case 3 :
                     exitMenu();
@@ -181,14 +176,23 @@ void Menu :: exitMenu(void)
     int msgboxID = MessageBox(NULL, "Are you sure you want to Exit?", "EXIT", MB_ICONWARNING | MB_YESNO | MB_DEFBUTTON2);
     switch (msgboxID)
     {
-        case IDYES:
-            mWindow.close();
-            exit(1);
-        case IDNO:
-            break;
+    case IDYES:
+        mWindow.close();
+        exit(1);
+    case IDNO:
+        break;
     }
 }
 
+void Menu::instructions()
+{
+    mWindow.clear();
+    mWindow.draw(background);
+    mWindow.draw(mInstruction);
+    mWindow.display();
+    Sleep(4000);
+    Menu();
+}
 #endif // MENU
 
 

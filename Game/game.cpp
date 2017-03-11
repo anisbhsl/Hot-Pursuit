@@ -48,7 +48,6 @@ Game ::Game() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"), //size of game w
 
 void Game::run()
 {
-
     //mSiren.play();
     sf::Clock clock; //starts the clock
 
@@ -67,7 +66,7 @@ void Game::run()
             enemy.loadEnemyRandom(x,-250);
             enemy.loadEnemy=true;
         }
-        update(elapsedTime=1.32,ptime);
+        update(elapsedTime=0.7,ptime);
         render();
 
     }
