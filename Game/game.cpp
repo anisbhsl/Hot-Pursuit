@@ -18,10 +18,10 @@ string ToString(T val)
 }
 
 Game ::Game() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"), //size of game window is 900 x 642 pixels
-    mRoad(),mRoadSprite1(),mRoadSprite2(),player(),oFont()
+    mRoad(),mRoadSprite1(),mRoadSprite2(),player(),oFont(),previousScore(0)
 {
     mWindow.setPosition(sf::Vector2i(177,0)); //sets the position of gaming window in screen
-    bgSpeed=0.9;
+    bgSpeed=0.8;
     if(!mRoad.loadFromFile("resource/image/roadb.png")) //imports road texture
     {
         cout<<"No File found for road"<<endl;
@@ -42,13 +42,15 @@ Game ::Game() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"), //size of game w
 
     ////////////////////////////////////Sound////////////////////////////////////////////////////////////
 
-    /*   if(!buffer.loadFromFile("resource/sounds/policesiren.ogg"))
-       {
+      if(!buffer.loadFromFile("resource/sounds/policesiren.ogg"))
            cout<<"No File found for police siren"<<endl;
-       }
        mSiren.setBuffer(buffer);
        mSiren.setLoop(true); //loops the sound
-    */
+
+        if(!buffer1.loadFromFile("resource/sounds/shatter.ogg"))
+           cout<<"No File found for police siren"<<endl;
+       mShatter.setBuffer(buffer1);
+
 
     /////////////////////////////////Score ///////////////////////////////////////////////////////////////
 
@@ -70,7 +72,7 @@ Game ::Game() : mWindow(sf::VideoMode(900,642), "Hot-Pursuit"), //size of game w
 
 void Game::run()
 {
-    //mSiren.play();
+    mSiren.play();        //game sound play
     sf::Clock clock;        //starts clock
 
     while (mWindow.isOpen())
@@ -78,13 +80,21 @@ void Game::run()
         processEvents();
 
         sf::Time playTime=clock.getElapsedTime();
-        int ptime=(playTime.asMilliseconds()/1000);
+        int ptime=(playTime.asMilliseconds()/1000);  //converts the time in milliseconds to seconds
 
         float x=rand()%750+20;  //gives range of values from 750 to 20
-        if((ptime%2==0))        //after each 2 seconds the enemy is generated randomly
+        if((ptime%3==0))        //after each 2 seconds the enemy is generated randomly
         {
-            enemy.loadEnemyRandom(x,-250);
-            enemy.loadEnemy=true;
+            if((ptime%5!=0))
+            {
+                enemy.loadEnemyRandom(x,-250);
+                enemy.loadEnemy=true;
+            }
+        }
+        if((ptime%5==0))
+        {
+            enemy.loadBarrelRandom(x,-250);
+            enemy.loadBarrel=true;
         }
         update(elapsedTime=0.7,ptime);
         render();
@@ -131,20 +141,39 @@ void Game::update(float elapsedTime,int time)   //updates the entities in the ga
     mRoadSprite2.setPosition(0,bg2Y);   //sets the position of road sprite
 
     //////////////collison/////////////////
-    if (player.eSprite.getGlobalBounds().intersects(enemy.eSprite.getGlobalBounds())) //collison detection
+    if (player.eSprite.getGlobalBounds().intersects(enemy.eSprite.getGlobalBounds())) //collison detection with police car
     {
         collision();
-        mWindow.close(); //game window closes when collison occurs
+        saveScore();
+        mWindow.close();        //game window closes when collison occurs
+    }
+    else if(player.eSprite.getGlobalBounds().intersects(enemy.mBarrelSprite.getGlobalBounds())) //collision detection with barrel
+    {
+        collision();
+        saveScore();
+        mWindow.close();
     }
     else
     {
-        player.updatePlayer(); //updates the player movement with user input
+        player.updatePlayer();  //updates the player movement with user input
         player.updatePlayerScore(time);
         updateScoreText.setString(player.playerScore);
     }
 
+    //Level UP
+    if( previousScore% 100 == 0 && previousScore != player.Score)
+        bgSpeed+=0.3;
+
+    previousScore = player.Score;
+
     if(enemy.loadEnemy==true) //whenever loadEnemy variable holds true value, enemy position is updated
-        enemy.updateEnemy();
+        enemy.updateEnemy(bgSpeed);
+    if(enemy.loadBarrel==true)
+    {
+        enemy.updateBarrel(bgSpeed); //whenever loadBarrel variable holds true value, barrel position is updated
+    }
+
+
 
 }
 
@@ -158,11 +187,15 @@ void Game::render()  //renders the game
     mWindow.draw(updateScoreText); //updates score in the screen
     if(enemy.loadEnemy==true)
         mWindow.draw(enemy.eSprite); //draws the enemy sprite
+    if(enemy.loadBarrel==true)
+        mWindow.draw(enemy.mBarrelSprite);
     mWindow.display();
 }
 
 void Game::collision()
 {
+    mSiren.stop();
+    mShatter.play();
     sf::Text gameOver;
     gameOver.setFont(oFont);
     gameOver.setCharacterSize(127);
@@ -195,8 +228,7 @@ void Game::collision()
     scoreDisplay.setString(score);
     mWindow.draw(scoreDisplay);
     mWindow.display();
-    Sleep(5000);
-    saveScore();
+    Sleep(3700);
 }
 
 void Game::saveScore()
@@ -212,9 +244,11 @@ void Game::saveScore()
     while(!scorefile.eof())
     {
         scorefile>>scores[i];
+        //cout<<scores[i]<<endl;
         length=i+1;
         i++;
     }
+    //cout<<length<<endl;
     scorefile.close();
 
     scores[length-1]=player.playerScore;
@@ -242,6 +276,7 @@ void Game::saveScore()
     for(int j=0; j<length; j++)
     {
         fscorefile<<scores[j]<<endl;
+        //cout<<scores[j]<<endl;
     }
     fscorefile.close();
     //print updated scores

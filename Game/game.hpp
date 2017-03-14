@@ -15,6 +15,10 @@ public:
     void collision();
     void saveScore();
 
+public:
+    int previousScore;
+    float bgSpeed;
+
 private:
     void processEvents();
     void update(float elapsedTime,int time);
@@ -34,8 +38,11 @@ private:
     float diff;
     float bg1Y;
     float bg2Y;
-    float bgSpeed;
     float elapsedTime;
+    sf::SoundBuffer buffer;
+    sf::Sound mSiren;
+    sf::SoundBuffer buffer1;
+    sf::Sound mShatter;
 };
 
 #endif // GAME
