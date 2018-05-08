@@ -3,5 +3,6 @@
 ## V1.3
 
 ![Game Menu](/images/gamemenu.jpg)
-![barrel](/images/barrel.jpg)
 ![car](/images/car.jpg)
+![barrel](/images/barrel.jpg)
+
